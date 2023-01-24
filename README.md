@@ -10,7 +10,6 @@ This project is intented to migrate Psy-Cross from C to Rust its based on [PsyCr
 - API ![](https://geps.dev/progress/0)
 - CD ![](https://geps.dev/progress/0)
 - ETC ![](https://geps.dev/progress/0)
-- GPU ![](https://geps.dev/progress/0)
 - GTE ![](https://geps.dev/progress/0)
 - MCRD ![](https://geps.dev/progress/0)
 - PAD ![](https://geps.dev/progress/0)
