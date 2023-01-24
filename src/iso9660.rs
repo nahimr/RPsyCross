@@ -52,39 +52,38 @@
  | byte 5-8   | Duplicated
 */
 
-mod ISO9660 {
-    pub const CD_ROOT_DIRECTORY_SECTOR: usize = 22;
-    pub const CD_SECTOR_SIZE: usize = 2048;
-    pub const CD_SECTOR_SIZE_MODE2: usize = 2352; // MODE2/2352
+pub const CD_ROOT_DIRECTORY_SECTOR: usize = 22;
+pub const CD_SECTOR_SIZE: usize = 2048;
+pub const CD_SECTOR_SIZE_MODE2: usize = 2352; // MODE2/2352
 
-    pub struct TOC {
-        tocEntryLength: u8,
-        extEntryLength: u8,
-        sectorPosition: [u32; 2],
-        fileSize: [u32; 2],
-        date: [u8; 7],
-        flags: u8,
-        fileUnitSize: u8,
-        interleaveGapSize: u8,
-        volSeqNum: [u16; 2],
-        nameLength: u8,
-    }
-
-    pub struct Sector {
-        sync: [u8; 12],     /// Sync pattern (usually 00 FF FF FF FF FF FF FF FF FF FF 00)
-        addr: [u8; 3],      /// Sector address (see below for encoding details)
-        mode: u8,           /// Mode (usually 2 for Mode 2 Form 1/2 sectors)
-        subHead: [u8; 8],   /// Sub-header (00 00 08 00 00 00 08 00 for Form 1 data sectors). See below for more
-        data: [u8; 2048],   /// Data (form 1)
-        edc: [u8; 4],       /// Error-detection code (CRC32 of data area)
-        ecc: [u8; 276],     /// Error-correction code (uses Reed-Solomon ECC algorithm)
-    }
-
-
-    pub struct AudioSector {
-        sync: [u8; 12],
-        addr: [u8; 3],
-        mode: u8,
-        data: [u8; 2336],
-    }
+pub struct TOC {
+    tocEntryLength: u8,
+    extEntryLength: u8,
+    sectorPosition: [u32; 2],
+    fileSize: [u32; 2],
+    date: [u8; 7],
+    flags: u8,
+    fileUnitSize: u8,
+    interleaveGapSize: u8,
+    volSeqNum: [u16; 2],
+    nameLength: u8,
 }
+
+pub struct Sector {
+    sync: [u8; 12],     // Sync pattern (usually 00 FF FF FF FF FF FF FF FF FF FF 00)
+    addr: [u8; 3],      // Sector address (see below for encoding details)
+    mode: u8,           // Mode (usually 2 for Mode 2 Form 1/2 sectors)
+    subHead: [u8; 8],   // Sub-header (00 00 08 00 00 00 08 00 for Form 1 data sectors). See below for more
+    data: [u8; 2048],   // Data (form 1)
+    edc: [u8; 4],       // Error-detection code (CRC32 of data area)
+    ecc: [u8; 276],     // Error-correction code (uses Reed-Solomon ECC algorithm)
+}
+
+
+pub struct AudioSector {
+    sync: [u8; 12],
+    addr: [u8; 3],
+    mode: u8,
+    data: [u8; 2336],
+}
+
