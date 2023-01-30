@@ -14,6 +14,7 @@ const CTR_HORIZ_RETRACE: u8 = 1;
 const CTR_CLOCK_SYS_ONE: u8 = 0;
 const CTR_CLOCK_SYS_ONE_EIGHTH: u8 = 1;
 
+#[derive(Default)]
 pub struct SysCounter {
     i_cycle: u32,
     cycle: u16,
@@ -64,7 +65,7 @@ pub fn set_rcnt(counters: &mut [SysCounter; 3], spec: i64, target: u16, mode: i6
     return true;
 }
 
-fn get_rcnt(counters: &mut [SysCounter; 3], spec: i64) -> u16 // (F)
+pub fn get_rcnt(counters: &mut [SysCounter; 3], spec: i64) -> u16 // (F)
 {
     let _spec: usize = spec as usize & 0xFFFF;
 
@@ -75,9 +76,9 @@ fn get_rcnt(counters: &mut [SysCounter; 3], spec: i64) -> u16 // (F)
     counters[_spec].cycle
 }
 
-fn reset_rcnt(counters: &mut [SysCounter; 3], spec: i64) -> bool // (F)
+pub fn reset_rcnt(counters: &mut [SysCounter; 3], spec: i64) -> bool // (F)
 {
-    let _spec = spec as usize & 0xFFFF;
+    let _spec: usize = spec as usize & 0xFFFF;
 
     if _spec > 2 {
         return false;
@@ -88,7 +89,7 @@ fn reset_rcnt(counters: &mut [SysCounter; 3], spec: i64) -> bool // (F)
     return true;
 }
 
-fn start_rcnt(spec: i64) -> bool // (F)
+pub fn start_rcnt(spec: i64) -> bool // (F)
 {
     let _spec: usize = spec as usize & 0xFFFF;
 
@@ -106,6 +107,6 @@ fn start_rcnt(spec: i64) -> bool // (F)
 }
 
 // TODO: Implement method
-fn stop_rcnt(spec: i64) -> bool {
+pub fn stop_rcnt(spec: i64) -> bool {
     return false;
 }
