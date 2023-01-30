@@ -1,9 +1,10 @@
 [package]
-name = "RPsyX"
+name = "psycross"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+half = "2.2.1"
 libc = "0.2.139"
 windows = "0.44.0"
 windows-sys = "0.45.0"

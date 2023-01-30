@@ -63,7 +63,6 @@ pub fn util_get_hcptimer(mut timer: TimerCtx, reset: bool) -> f64
     QueryPerformanceCounter(performanceFrequency);
     QueryPerformanceCounter(curr);
 
-
     let value: f64 = ((curr.QuadPart - timer.clock_start) as f64) / performanceFrequency as f64;
 
     if reset {
