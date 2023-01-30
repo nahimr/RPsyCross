@@ -1,5 +1,5 @@
-const DWORD_300: [u8; 4] = [0x20, 0xD, 0x0, 0x0];
-const DWORD_308: [u8; 4] = [0x10, 0x20, 0x40, 0x1];
+static mut DWORD_300: [u8; 4] = [0x20, 0xD, 0x0, 0x0];
+static mut DWORD_308: [u8; 4] = [0x10, 0x20, 0x40, 0x1];
 
 const CTR_RUNNING: u8 = 0;
 const CTR_STOPPED: u8 = 1;
@@ -93,7 +93,10 @@ fn start_rcnt(spec: i64) -> bool // (F)
     let _spec: usize = spec as usize & 0xFFFF;
 
     // TODO: Need mutable
-    DWORD_300[1] |= DWORD_308[_spec];
+
+    unsafe {
+        DWORD_300[1] |= DWORD_308[_spec];
+    }
 
     if spec < 3 {
         true
