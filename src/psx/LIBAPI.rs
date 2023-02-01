@@ -1,18 +1,18 @@
 static mut DWORD_300: [u8; 4] = [0x20, 0xD, 0x0, 0x0];
 static mut DWORD_308: [u8; 4] = [0x10, 0x20, 0x40, 0x1];
 
-const CTR_RUNNING: u8 = 0;
-const CTR_STOPPED: u8 = 1;
+pub const CTR_RUNNING: u8 = 0;
+pub const CTR_STOPPED: u8 = 1;
 
-const CTR_MODE_TO_FFFF: u8 = 0;
-const CTR_MODE_TO_TARG: u8 = 1;
+pub const CTR_MODE_TO_FFFF: u8 = 0;
+pub const CTR_MODE_TO_TARG: u8 = 1;
 
-const CTR_CLOCK_SYS: u8 = 0;
-const CTR_CLOCK_PIXEL: u8 = 1;
-const CTR_HORIZ_RETRACE: u8 = 1;
+pub const CTR_CLOCK_SYS: u8 = 0;
+pub const CTR_CLOCK_PIXEL: u8 = 1;
+pub const CTR_HORIZ_RETRACE: u8 = 1;
 
-const CTR_CLOCK_SYS_ONE: u8 = 0;
-const CTR_CLOCK_SYS_ONE_EIGHTH: u8 = 1;
+pub const CTR_CLOCK_SYS_ONE: u8 = 0;
+pub const CTR_CLOCK_SYS_ONE_EIGHTH: u8 = 1;
 
 #[derive(Default)]
 pub struct SysCounter {
@@ -92,8 +92,6 @@ pub fn reset_rcnt(counters: &mut [SysCounter; 3], spec: i64) -> bool // (F)
 pub fn start_rcnt(spec: i64) -> bool // (F)
 {
     let _spec: usize = spec as usize & 0xFFFF;
-
-    // TODO: Need mutable
 
     unsafe {
         DWORD_300[1] |= DWORD_308[_spec];
