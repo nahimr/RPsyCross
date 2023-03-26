@@ -29,13 +29,13 @@ pub struct SysCounter {
     padding01: u32,
 }
 
-pub fn set_rcnt(counters: &mut [SysCounter; 3], spec: i64, target: u16, mode: i64) -> bool // (F)
+pub fn set_rcnt(counters: &mut [SysCounter; 3], spec: i64, target: u16, mode: i64) -> i64 // (F)
 {
     let mut value: u32 = 0x48;
     let mut _spec: usize = spec as usize & 0xFFFF;
 
     if spec > 2 {
-        return false;
+        return 0;
     }
 
     counters[_spec].value = 0;
@@ -62,7 +62,7 @@ pub fn set_rcnt(counters: &mut [SysCounter; 3], spec: i64, target: u16, mode: i6
 
     counters[_spec].value = value as u16;
 
-    return true;
+    1
 }
 
 pub fn get_rcnt(counters: &mut [SysCounter; 3], spec: i64) -> u16 // (F)
@@ -76,20 +76,20 @@ pub fn get_rcnt(counters: &mut [SysCounter; 3], spec: i64) -> u16 // (F)
     counters[_spec].cycle
 }
 
-pub fn reset_rcnt(counters: &mut [SysCounter; 3], spec: i64) -> bool // (F)
+pub fn reset_rcnt(counters: &mut [SysCounter; 3], spec: i64) -> i64 // (F)
 {
     let _spec: usize = spec as usize & 0xFFFF;
 
     if _spec > 2 {
-        return false;
+        return 0;
     }
 
     counters[_spec].cycle = 0;
 
-    return true;
+    return 1;
 }
 
-pub fn start_rcnt(spec: i64) -> bool // (F)
+pub fn start_rcnt(spec: i64) -> i64 // (F)
 {
     let _spec: usize = spec as usize & 0xFFFF;
 
@@ -98,13 +98,331 @@ pub fn start_rcnt(spec: i64) -> bool // (F)
     }
 
     if spec < 3 {
-        true
+        1
     } else {
-        false
+        0
     }
 }
 
-// TODO: Implement method
-pub fn stop_rcnt(spec: i64) -> bool {
-    return false;
+pub fn stop_rcnt(spec: i64) -> i64 {
+    0
 }
+
+pub fn open_event(event: u64, unk01: i64, unk02: i64, func: fn() -> i64) -> i64
+{
+	0
+}
+
+pub fn close_event(event: u64) -> i64
+{
+	0
+}
+
+pub fn enable_event(event: u64) -> i64
+{
+	0
+}
+
+pub fn disable_event(event: u64) -> i64
+{
+	0
+}
+
+pub fn wait_event(event: u64) -> i64
+{
+	0
+}
+
+pub fn test_event(event: u64) -> i64
+{
+	0
+}
+
+pub fn deliver_event(ev1: u64, ev2: i64) -> i64
+{
+    0
+}
+
+pub fn undeliver_event(ev1: u64, ev2: i64) -> i64
+{
+    0
+}
+
+pub fn open_th(func: fn() -> i64, unk01: u64, unk02: u64) -> i64
+{
+	0
+}
+
+pub fn close_th(unk00: i64) -> i64
+{
+	0
+}
+
+pub fn change_th(unk00: i64) -> i64
+{
+	0
+}
+
+
+// pub fn load_test(unk00: &string, struct EXEC* unk01) -> i64
+// {
+// 	0
+	
+// }
+
+// pub fn Load(char * unk00, struct EXEC* unk01)
+// {
+// 	0
+	
+// }
+
+// pub fn Exec(struct EXEC * unk00, long unk01, char** unk02)
+// {
+// 	0
+	
+// }
+
+// pub fn LoadExec(char * unk00, unsigned long unk01, unsigned long unk02)
+// {
+// 	0
+	
+// }
+
+// pub fn InitPAD(char * unk00, long unk01, char* unk02, long unk03)
+// {
+// 	0
+	
+// }
+
+// pub fn StartPAD()
+// {
+// 	0
+	
+// }
+
+// pub fn StopPAD()
+// {
+// 	0
+// }
+
+// pub fn EnablePAD()
+// {
+// 	0
+// }
+
+// pub fn DisablePAD()
+// {
+// 	0
+// }
+
+// pub fn FlushCache()
+// {
+// 	0
+// }
+
+// pub fn ReturnFromException()
+// {
+// 	0
+// }
+
+// pub fn EnterCriticalSection()
+// {
+// 	0
+	
+// }
+
+// pub fn ExitCriticalSection()
+// {
+// 	0
+// }
+
+// pub fn Exception()
+// {
+// 	0
+// }
+
+// pub fn SwEnterCriticalSection()
+// {
+// 	0
+// }
+// pub fn SwExitCriticalSection()
+// {
+// 	0
+// }
+
+// pub fn SetSp(unsigned long newsp)//(F)
+// {
+// 	unsigned long old_sp = sp;
+// 	sp = newsp;
+// 	return old_sp;
+// }
+
+// pub fn GetSp()
+// {
+// 	0
+	
+// }
+
+// pub fn GetGp()
+// {
+// 	0
+	
+// }
+
+// pub fn GetCr()
+// {
+// 	0
+	
+// }
+
+// pub fn GetSr()
+// {
+// 	0
+	
+// }
+
+// pub fn GetSysSp()
+// {
+// 	0
+	
+// }
+
+// pub fn SetConf(unsigned long unk00, unsigned long unk01, unsigned long unk02)
+// {
+// 	0
+	
+// }
+
+// pub fn GetConf(unsigned long* unk00, unsigned long* unk01, unsigned long* unk02)
+// {
+// 	0
+// }
+
+// pub fn SystemError(char unk00, long unk01)
+// {
+// 	0
+// }
+
+// pub fn SetMem(long unk00)
+// {
+// 	0
+// }
+
+// pub fn Krom2RawAdd(unsigned long unk00)
+// {
+// 	0
+	
+// }
+
+// pub fn Krom2RawAdd2(unsigned short unk00)
+// {
+// 	0
+	
+// }
+
+// pub fn _96_init(void)
+// {
+// 	0
+// }
+
+// pub fn _96_remove(void)
+// {
+// 	0
+// }
+
+// pub fn _boot(void)
+// {
+// 	0
+// }
+
+// pub fn ChangeClearPAD(long unk00)
+// {
+// 	0
+// }
+
+// pub fn InitCARD(long val)
+// {
+// 	0
+// }
+
+// pub fn StartCARD()
+// {
+// 	0
+	
+// }
+
+// pub fn StopCARD()
+// {
+// 	0
+	
+// }
+
+// pub fn _bu_init()
+// {
+// 	0
+// }
+
+// pub fn _card_info(long chan)
+// {
+// 	0
+	
+// }
+
+// pub fn _card_clear(long chan)
+// {
+// 	0
+	
+// }
+
+// pub fn _card_load(long chan)
+// {
+// 	0
+	
+// }
+
+// pub fn _card_auto(long val)
+// {
+// 	0
+	
+// }
+
+// pub fn _new_card()
+// {
+// 	0
+// }
+
+// pub fn _card_status(long drv)
+// {
+// 	0
+	
+// }
+
+// pub fn _card_wait(long drv)
+// {
+// 	0
+	
+// }
+
+// pub fn _card_chan(void)
+// {
+// 	0
+	
+// }
+
+// pub fn _card_write(long chan, long block, unsigned char *buf)
+// {
+// 	0
+	
+// }
+
+// pub fn _card_read(long chan, long block, unsigned char *buf)
+// {
+// 	0
+	
+// }
+
+// pub fn _card_format(long chan)
+// {
+// 	0
+	
+// }
